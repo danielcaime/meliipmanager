@@ -20,20 +20,24 @@ namespace ipmanager.api.Controllers
         public async Task<IActionResult> Get(string ip)
         {
             var model = new { ip = ip };
-            await _managerService.GetInfoByIp(ip);
-            return Ok(model);
+            var response = await _managerService.GetInfoByIp(ip);
+            return Ok(response);
         }
 
         // PUT api/<Manager>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{ip}")]
+        public async Task<IActionResult> Put(string ip)
         {
+            await _managerService.BanRemove(ip);
+            return Ok();
         }
 
         // DELETE api/<Manager>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{ip}")]
+        public async Task<IActionResult> Delete(string ip)
         {
+            await _managerService.Ban(ip);
+            return Ok();
         }
     }
 }

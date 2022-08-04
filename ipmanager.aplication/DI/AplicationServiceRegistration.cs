@@ -18,6 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IManagerService, ManagerService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICurrencyService, CurrencyService>();
+            services.AddSingleton<IBanService, BanService>();
             
             return services;
         }

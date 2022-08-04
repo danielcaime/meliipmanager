@@ -9,6 +9,7 @@ namespace ipmanager.aplication.Services
     {
         private readonly IpApiClient _ipApiClient;
         private readonly IMemoryCache _memoryCache;
+        //private readonly IDistributedCache _cache;
         public IpService(IpApiClient ipApiClient, IMemoryCache memoryCache)
         {
             _ipApiClient = ipApiClient;
