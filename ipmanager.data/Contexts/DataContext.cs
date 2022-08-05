@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ipmanager.domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace ipmanager.data.Contexts
@@ -14,7 +15,9 @@ namespace ipmanager.data.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite(_configuration.GetConnectionString("api_database"));
+            options.UseSqlite(_configuration.GetConnectionString("WebApiDatabase"));
         }
+
+        public DbSet<IpModel> IpModel { get; set; }
     }
 }

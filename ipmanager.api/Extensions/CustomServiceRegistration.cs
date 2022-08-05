@@ -1,5 +1,10 @@
-﻿using ipmanager.aplication.HttpClients;
+﻿using ipmanager.api.Settings;
+using ipmanager.aplication.HttpClients;
+using ipmanager.data.Contexts;
+using ipmanager.data.Repositories;
+using ipmanager.domain.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.OpenApi.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -8,41 +13,56 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection CustomConfigureServices(this IServiceCollection services, WebApplicationBuilder builder)
         {
 
+            services.AddDbContext<DataContext>();
             services.AddControllers();
             services.AddRouting(options => options.LowercaseUrls = true);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "ipmanager API",
+                    Description = "ipmanager API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "staff",
+                        Email = "caime.daniel@gmail.com",
+                    },
+                });
+            });
+
+            services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
             services.AddAplicationServices();
-            services.AddClients();
+            services.AddClients(builder.Configuration);
             services.AddSingleton<IMemoryCache, MemoryCache>();
+            services.AddScoped<IIpModelRepository, IpModelRepository>();
+
             return services;
         }
 
-
-        public static IServiceCollection AddClients(this IServiceCollection services)
+        public static IServiceCollection AddClients(this IServiceCollection services, IConfiguration configuration)
         {
+            var appSettings = configuration.GetSection("AppSettings").Get<AppSettings>();
+
             //services urls
-            services.AddHttpClient<IpApiClient>(opt =>
-            {
-                opt.BaseAddress = new Uri("http://api.ipapi.com");//TODO: move to setting json file
+            services.AddHttpClient<IpApiClient>(opt => {
+                opt.BaseAddress = new Uri(appSettings.IpApiUrl);
             });
 
-            //services.AddHttpClient<CountrylayerClient>(opt => {
-            //    opt.BaseAddress = new Uri("http://api.countrylayer.com");
-            //});
-
             services.AddHttpClient<CurrencyClient>(opt => {
-                opt.BaseAddress = new Uri("https://fixer-fixer-currency-v1.p.rapidapi.com");
-                opt.DefaultRequestHeaders.Add("X-RapidAPI-Key", "340c5b558fmsh863ba30555a3c8fp1d0cd0jsnf511fbf1d0a1");
+                opt.BaseAddress = new Uri(appSettings.CurrencyUrl);
+                opt.DefaultRequestHeaders.Add("X-RapidAPI-Key", appSettings.RapidAPIKey);
                 opt.DefaultRequestHeaders.Add("X-RapidAPI-Host", "fixer-fixer-currency-v1.p.rapidapi.com");
             });
 
             services.AddHttpClient<GeoDbClient>(opt => {
-                opt.BaseAddress = new Uri("https://wft-geo-db.p.rapidapi.com");
-                opt.DefaultRequestHeaders.Add("X-RapidAPI-Key", "340c5b558fmsh863ba30555a3c8fp1d0cd0jsnf511fbf1d0a1");
+                opt.BaseAddress = new Uri(appSettings.GeoDbUrl);
+                opt.DefaultRequestHeaders.Add("X-RapidAPI-Key", appSettings.RapidAPIKey);
                 opt.DefaultRequestHeaders.Add("X-RapidAPI-Host", "wft-geo-db.p.rapidapi.com");
             });
+
             return services;
         }
     }

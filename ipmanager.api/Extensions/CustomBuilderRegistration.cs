@@ -5,6 +5,7 @@ namespace Microsoft.AspNetCore.Builder
     {
         public static IApplicationBuilder CustomConfigure(this IApplicationBuilder app)
         {
+            
             // Configure the HTTP request pipeline.
             app.UseSwagger();
             app.UseSwaggerUI();
