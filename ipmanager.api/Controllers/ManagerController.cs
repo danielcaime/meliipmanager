@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ipmanager.api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ManagerController : ControllerBase
     {

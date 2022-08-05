@@ -1,13 +1,5 @@
 ﻿using ipmanager.aplication.Interfaces;
 using ipmanager.aplication.Services;
-using ipmanager.domain.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -20,7 +12,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<IBanService, BanService>();
-            
+            services.AddSingleton<ICacheService, CacheService>();
+               
             
             return services;
         }
