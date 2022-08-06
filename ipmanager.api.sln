@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ipmanager.api", "ipmanager.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ipmanager.aplication", "ipmanager.aplication\ipmanager.aplication.csproj", "{AE8F0FA1-D258-4D2C-98D7-98AF2058B270}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ipmanager.data", "ipmanager.data\ipmanager.data.csproj", "{3A655254-8854-4124-BEE9-08A1178F3964}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ipmanager.data", "ipmanager.data\ipmanager.data.csproj", "{3A655254-8854-4124-BEE9-08A1178F3964}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ipmanager.domain", "ipmanager.domain\ipmanager.domain.csproj", "{7A279FC5-56B6-4AA3-81FE-053676DFB032}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ipmanager.domain", "ipmanager.domain\ipmanager.domain.csproj", "{7A279FC5-56B6-4AA3-81FE-053676DFB032}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ipmanager.test", "ipmanager.test\ipmanager.test.csproj", "{C18DF532-C945-4315-9E05-18770051B762}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7A279FC5-56B6-4AA3-81FE-053676DFB032}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A279FC5-56B6-4AA3-81FE-053676DFB032}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A279FC5-56B6-4AA3-81FE-053676DFB032}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C18DF532-C945-4315-9E05-18770051B762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C18DF532-C945-4315-9E05-18770051B762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C18DF532-C945-4315-9E05-18770051B762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C18DF532-C945-4315-9E05-18770051B762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
