@@ -20,3 +20,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "ipmanager.api.dll"]
+
+## to build and publish image on docker
+##docker build -t ipmanager .
+##docker run -d -p 8080:80 --name meli_app ipmanager
