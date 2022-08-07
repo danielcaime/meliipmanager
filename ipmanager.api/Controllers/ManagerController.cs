@@ -1,7 +1,6 @@
 ﻿using ipmanager.api.Validations;
 using ipmanager.aplication.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 using IpModel = System.String;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,13 +20,6 @@ namespace ipmanager.api.Controllers
         [HttpGet("{ip}")]
         public async Task<IActionResult> Get(IpModel ip)
         {
-            IpModel model = ip;
-            var val = new ModelValidator();
-            var res =  val.Validate(model);
-
-            if (!res.IsValid)
-                return BadRequest(res.ToString());
-
             var response = await _managerService.GetInfoByIp(ip);
             return Ok(response);
         }
