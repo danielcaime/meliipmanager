@@ -1,6 +1,8 @@
-﻿using ipmanager.aplication.Interfaces;
+﻿using ipmanager.api.Validations;
+using ipmanager.aplication.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
+using System.ComponentModel.DataAnnotations;
+using IpModel = System.String;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ipmanager.api.Controllers
@@ -17,16 +19,22 @@ namespace ipmanager.api.Controllers
 
         // GET api/<Manager>/5
         [HttpGet("{ip}")]
-        public async Task<IActionResult> Get(string ip)
+        public async Task<IActionResult> Get(IpModel ip)
         {
-            var model = new { ip = ip };
+            IpModel model = ip;
+            var val = new ModelValidator();
+            var res =  val.Validate(model);
+
+            if (!res.IsValid)
+                return BadRequest(res.ToString());
+
             var response = await _managerService.GetInfoByIp(ip);
             return Ok(response);
         }
 
         // PUT api/<Manager>/5
         [HttpPut("{ip}")]
-        public async Task<IActionResult> Put(string ip)
+        public async Task<IActionResult> Put(IpModel ip)
         {
             await _managerService.BanRemove(ip);
             return Ok();
@@ -34,7 +42,7 @@ namespace ipmanager.api.Controllers
 
         // DELETE api/<Manager>/5
         [HttpDelete("{ip}")]
-        public async Task<IActionResult> Delete(string ip)
+        public async Task<IActionResult> Delete(IpModel ip)
         {
             await _managerService.Ban(ip);
             return Ok();
