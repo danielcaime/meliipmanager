@@ -18,13 +18,13 @@ namespace ipmanager.aplication.Services
         public async Task<CountryInfoResponse> GetCountryInfo(string isoCode)
         {
             CountryInfoResponse countryInfoResponse;
-            countryInfoResponse = _cacheService.Get<CountryInfoResponse>(isoCode);
+            countryInfoResponse = await _cacheService.Get<CountryInfoResponse>(isoCode);
 
             if (countryInfoResponse == null)
             {
                 var response = await _client.Get<GeoDbResponse>($"/v1/locale/currencies", new { countryId = isoCode, limit = 1 });
                 countryInfoResponse = response.Data.FirstOrDefault();
-                _cacheService.Set<CountryInfoResponse>(isoCode, countryInfoResponse);
+                await _cacheService.Set<CountryInfoResponse>(isoCode, countryInfoResponse);
             }
 
             return countryInfoResponse;

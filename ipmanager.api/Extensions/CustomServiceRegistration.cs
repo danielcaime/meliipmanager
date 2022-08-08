@@ -1,4 +1,7 @@
-﻿using ipmanager.api.Settings;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using ipmanager.api.Settings;
+using ipmanager.api.Validations;
 using ipmanager.aplication.HttpClients;
 using ipmanager.data.Contexts;
 using ipmanager.data.Repositories;
@@ -33,12 +36,21 @@ namespace Microsoft.Extensions.DependencyInjection
                 });
             });
 
+            //fluent validations
+            services.AddFluentValidationAutoValidation(x =>
+            {
+                /* more to come here */
+            });
+            services.AddValidatorsFromAssemblyContaining<ModelValidator>();
+
             services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
             services.AddAplicationServices();
             services.AddClients(builder.Configuration);
             services.AddSingleton<IMemoryCache, MemoryCache>();
             services.AddScoped<IIpModelRepository, IpModelRepository>();
-
+            services.AddStackExchangeRedisCache(opt => {
+                opt.Configuration = builder.Configuration.GetConnectionString("RedisUrl");
+            });
             return services;
         }
 
