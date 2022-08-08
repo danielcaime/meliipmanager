@@ -18,11 +18,11 @@ namespace ipmanager.aplication.Services
         public async Task<CurrencyRateResponse> GetRates(string currencyBase, string symbols = "USD")
         {
             CurrencyRateResponse currencyRateResponse;
-            currencyRateResponse = _cacheService.Get<CurrencyRateResponse>(currencyBase);
+            currencyRateResponse = await _cacheService.Get<CurrencyRateResponse>(currencyBase);
             if (currencyRateResponse == null)
             {
                 currencyRateResponse = await _currencyClient.Get<CurrencyRateResponse>($"/latest", new { Base = currencyBase, Symbols = symbols });
-                _cacheService.Set<CurrencyRateResponse>(currencyBase, currencyRateResponse);
+                await _cacheService.Set<CurrencyRateResponse>(currencyBase, currencyRateResponse);
             }
             return currencyRateResponse;
         }

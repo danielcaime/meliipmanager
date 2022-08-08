@@ -2,14 +2,6 @@
 
 It's a demonstration app
 
-## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
-```bash
-pip install foobar
-```
-
 ## Implements 
 
 ```c#
@@ -21,6 +13,15 @@ httpclient
 DI
 
 FluentValidation
+
+Unit Test
+
+for integration test was used postman tool, and the postman file are added to the folder solution
+
+IMemoryCache
+IDistributedCache
+# for use Redis IDistributedCache uncomment commented lines in get and set method at CacheService
+
 
 ```
 

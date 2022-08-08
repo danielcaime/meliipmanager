@@ -18,11 +18,11 @@ namespace ipmanager.aplication.Services
         {
             IpApiResponse ipApiResponse;
 
-            ipApiResponse = _cacheService.Get<IpApiResponse>(ipstr);
+            ipApiResponse = await _cacheService.Get<IpApiResponse>(ipstr);
             if (ipApiResponse == null)
             {
                 ipApiResponse = await _ipApiClient.Get<IpApiResponse>($"/{ipstr}", new { access_key = "af8320b02dbdf6d44fd6f73a3045341a" });
-                _cacheService.Set<IpApiResponse>(ipstr, ipApiResponse);
+                await _cacheService.Set<IpApiResponse>(ipstr, ipApiResponse);
             }
 
             return ipApiResponse;

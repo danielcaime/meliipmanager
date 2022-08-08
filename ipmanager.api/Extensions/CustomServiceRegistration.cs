@@ -48,7 +48,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddClients(builder.Configuration);
             services.AddSingleton<IMemoryCache, MemoryCache>();
             services.AddScoped<IIpModelRepository, IpModelRepository>();
-
+            services.AddStackExchangeRedisCache(opt => {
+                opt.Configuration = builder.Configuration.GetConnectionString("RedisUrl");
+            });
             return services;
         }
 
