@@ -1,14 +1,17 @@
 # Ip Manager
 
-It's a demonstration app
+It's a demonstration purpose app
 
 ## Implements 
 
 ```c#
+
+Clean Architecture
+
 dotnet --version
 6.0.301
 
-httpclient
+HttpClient used for another apis comsumption
 
 DI
 
@@ -21,7 +24,15 @@ for integration test was used postman tool, and the postman file are added to th
 IMemoryCache
 IDistributedCache
 # for use Redis IDistributedCache uncomment commented lines in get and set method at CacheService
+# configure redis server url
 
+EF - Entity Framework implemented with repository pattern 
+#for test purpouse is used a sqlite ddbb 
+#in production use a distributed ddbb
+
+Docker - for deploy build a docker image:
+docker build -t ipmanager .
+docker run -d -p 8080:80 --name meli_app ipmanager
 
 ```
 

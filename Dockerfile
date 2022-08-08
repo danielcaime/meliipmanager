@@ -11,6 +11,10 @@ COPY ["ipmanager.api/ipmanager.api.csproj", "ipmanager.api/"]
 RUN dotnet restore "ipmanager.api/ipmanager.api.csproj"
 COPY . .
 WORKDIR "/src/ipmanager.api"
+
+# Run tests
+RUN find . -name *.sln -print0 | xargs -r -n 1 -0 dotnet test
+
 RUN dotnet build "ipmanager.api.csproj" -c Release -o /app/build
 
 FROM build AS publish
