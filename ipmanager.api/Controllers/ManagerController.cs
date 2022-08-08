@@ -11,7 +11,7 @@ namespace ipmanager.api.Controllers
     public class ManagerController : ControllerBase
     {
         private readonly IManagerService _managerService;
-        public ManagerController( IManagerService managerService)
+        public ManagerController(IManagerService managerService)
         {
             _managerService = managerService;
         }
@@ -20,8 +20,15 @@ namespace ipmanager.api.Controllers
         [HttpGet("{ip}")]
         public async Task<IActionResult> Get(IpModel ip)
         {
-            var response = await _managerService.GetInfoByIp(ip);
-            return Ok(response);
+            try
+            {
+                var response = await _managerService.GetInfoByIp(ip);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<Manager>/5
