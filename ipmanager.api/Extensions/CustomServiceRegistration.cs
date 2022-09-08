@@ -65,13 +65,13 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddHttpClient<CurrencyClient>(opt => {
                 opt.BaseAddress = new Uri(appSettings.CurrencyUrl);
-                opt.DefaultRequestHeaders.Add("X-RapidAPI-Key", appSettings.RapidAPIKey);
+                opt.DefaultRequestHeaders.Add("X-RapidAPI-Key", configuration.GetValue<string>("RapidAPIKey"));
                 opt.DefaultRequestHeaders.Add("X-RapidAPI-Host", "fixer-fixer-currency-v1.p.rapidapi.com");
             });
 
             services.AddHttpClient<GeoDbClient>(opt => {
                 opt.BaseAddress = new Uri(appSettings.GeoDbUrl);
-                opt.DefaultRequestHeaders.Add("X-RapidAPI-Key", appSettings.RapidAPIKey);
+                opt.DefaultRequestHeaders.Add("X-RapidAPI-Key", configuration.GetValue<string>("RapidAPIKey"));
                 opt.DefaultRequestHeaders.Add("X-RapidAPI-Host", "wft-geo-db.p.rapidapi.com");
             });
 
